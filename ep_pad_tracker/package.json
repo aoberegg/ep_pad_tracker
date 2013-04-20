@@ -1,7 +1,26 @@
 {
-  "name": "ep_pad_tracker",   
+  "name": "ep_pad_tracker",
   "description": "Tracks choosen Pads",
-  "version": "0.0.01",
-  "author": "Alexander Oberegger <a.oberegger@student.tugraz.at",
-  "dependencies": {}
+  "version": "0.0.02",
+  "author": {
+    "name": "Alexander Oberegger"
+  },
+  "dependencies": {},
+  "readmeFilename": "README.txt",
+  "main": "hooks.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aoberegg/ep_pad_tracker.git"
+  },
+  "keywords": [
+    "etherpad-lite",
+    "track"
+  ],
+  "license": "BSD",
+  "readme": "INSTALL\n=======\n\nnpm install ep_pad_tracker\n(see also https://github.com/Pita/etherpad-lite/wiki/Creating-a-plugin   [Step 5 Install plugin])\n",
+  "_id": "ep_pad_tracker@0.0.01",
+  "_from": "ep_pad_tracker@"
 }
