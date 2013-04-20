@@ -30,7 +30,10 @@ exports.eejsBlock_adminMenu = function(hook_name, args, cb) {
 	  args.content = args.content + '<li><a href="'+ urlPrefix +'padtracker">Pad Tracker</a> </li>';
 	  return cb();
 };
-
+exports.eejsBlock_styles = function (hook_name, args, cb) {
+    args.content = args.content + eejs.require("ep_pad_tracker/templates/styles.ejs", {}, module);
+  return cb();
+}
 
 exports.socketio = function (hook_name, args, cb) { 
 	io = args.io.of("/pluginfw/admin/padtracker");
@@ -103,7 +106,6 @@ exports.socketio = function (hook_name, args, cb) {
     		    			});
     		    			trackedPads.push(padObject);
 	    		    	});
-	    		    	console.log(trackedPads);
 	    				socket.emit("tracked-search-result", trackedPads);
 	    			} 		
 	    		});
@@ -111,11 +113,11 @@ exports.socketio = function (hook_name, args, cb) {
 	    	
 	    	socket.on("save-track-pads",function(padList){
 	    		padList.list.forEach(function(pad_name){
-	    			db.set("trackPad:"+pad_name, {pad_name: pad_name},function(){
-	    				
+	    				db.set("trackPad:"+pad_name, {pad_name: pad_name},function(){
 	    			});	
 	    		});
 	    		socket.emit("pads-saved");
+	    		
 	    		
 	    	});
 	    	
@@ -126,8 +128,12 @@ exports.socketio = function (hook_name, args, cb) {
 	    		    pads.padIDs.forEach(function(pad){
 	    		    	db.get('trackPad:'+pad, function(err,value){
 							if(value != "" && value != null){
-								padObject = {};
+								padObject = {};	
 	    		    			padManager.getPad(value.pad_name, function(err, padObj){
+	    		    				if(err)
+    								{
+    									console.log("Error pad ot found")	
+    								}
 	    		    				padObject.name = value.pad_name;
 	    		    				padObject.rev = padObj.getHeadRevisionNumber();
 	    		    				padObj.getLastEdit(function(err, value){
@@ -146,6 +152,7 @@ exports.socketio = function (hook_name, args, cb) {
 	    		db.remove('trackPad:'+padName, null, function(){
 	    			socket.emit("pad-removed");
 	    		});
+	    		
 	    	});
 	  }); 
 };

@@ -5,7 +5,8 @@
       "hooks": {
         "expressCreateServer": "ep_pad_tracker/hooks.js:expressCreateServer",
         "eejsBlock_adminMenu" : "ep_pad_tracker/hooks.js",
-        "socketio"		: "ep_pad_tracker/hooks"
+        "socketio"		: "ep_pad_tracker/hooks",
+        "eejsBlock_styles" : "ep_pad_tracker/hooks"
       },
       "client_hooks" : {
                 "documentReady" : "ep_pad_tracker/static/js/admin/pad_tracker.js:documentReady"

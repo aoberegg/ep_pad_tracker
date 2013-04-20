@@ -82,6 +82,17 @@ exports.documentReady = function(hooks, context, cb){
      var time = date+'. '+month+' '+year+' '+hour+':'+min+':'+sec ;
      return time;
    }
+   var getTime = function(a){
+ 	 var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+     var year = a.getFullYear();
+     var month = months[a.getMonth()];
+     var date = a.getDate();
+     var hour = (( a.getHours() < 10) ? "0" : "") +  a.getHours();
+     var min = ((a.getMinutes() < 10) ? "0" : "") + a.getMinutes();
+     var sec = ((a.getSeconds() < 10) ? "0" : "") + a.getSeconds();
+     var time = date+'. '+month+' '+year+' '+hour+':'+min+':'+sec ;
+     return time;
+   }
    var sortByDateDesc = function(a,b){
 		return b.date - a.date;
    }
@@ -212,7 +223,6 @@ exports.documentReady = function(hooks, context, cb){
 	});
 	socket.on('tracked-search-result', function(pads){
 		trackedPads = pads;
-		console.log(pads);
 		showTrackedPads(pads, sortByDateDesc);
 	});
 	socket.on('pad-removed', function(){
