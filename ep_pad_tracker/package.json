@@ -1,0 +1,7 @@
+{
+  "name": "ep_pad_tracker",   
+  "description": "Tracks choosen Pads",
+  "version": "0.0.01",
+  "author": "Alexander Oberegger <a.oberegger@student.tugraz.at",
+  "dependencies": {}
+}

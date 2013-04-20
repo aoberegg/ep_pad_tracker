@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>Pad administration</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<link rel="stylesheet" href="../static/css/admin.css">
+<link rel="stylesheet"
+	href="/static/plugins/ep_pad_tracker/static/css/pads.css">
+<script src="../socket.io/socket.io.js"></script>
+<script src="../static/js/jquery.js"></script>
+<script type="text/javascript" src="../static/js/require-kernel.js"></script>
+<script type="text/javascript"
+	src="../javascripts/lib/ep_etherpad-lite/static/js/ace2_common.js?callback=require.define"></script>
+<script type="text/javascript">
+	(function() {
+		var pathComponents = location.pathname.split('/');
+		var baseURL = pathComponents.slice(0, pathComponents.length - 2).join(
+				'/')
+				+ '/';
+		require.setRootURI(baseURL + "javascripts/src");
+		require.setLibraryURI(baseURL + "javascripts/lib");
+		require.setGlobalKeyPath("require");
+		console.log("here");
+		var plugins = require('ep_etherpad-lite/static/js/pluginfw/client_plugins');
+		var hooks = require('ep_etherpad-lite/static/js/pluginfw/hooks');
+
+		plugins.baseURL = baseURL;
+		plugins.update(function() {
+			hooks.plugins = plugins;
+			hooks.aCallAll('documentReady', 'admin/pad_tracker');
+		});
+	}());
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="menu">
+			<h1>Etherpad lite</h1>
+			<ul>
+				<% e.begin_block("adminMenu"); %>
+				<li><a href="plugins">Plugin manager</a></li>
+				<li><a href="settings">Settings</a></li>
+				<li><a href="plugins/info">Troubleshooting information</a></li> <%
+				e.end_block(); %>
+			</ul>
+		</div>
+
+		<div class="innerwrapper">
+		
+			<h2>Tracking Pads</h2>
+			<form name="Search Pad" id="search-pad">
+				<input type="button" value="Track New Pad" id="trackPadButton">
+			</form>
+			<div id="search-div-tracked-pads">
+	 			<form id="search-form-tracked-pads">
+	 				<input type="text"  placeholder="Search for Pad" id="search-tracked-pad-name">	 			
+	 			</form>
+	 		</div>
+			<div id="trackPadBox" class="white_content">
+	
+	 			<a href = "javascript:void(0)" onclick = "document.getElementById('trackPadBox').style.display='none'
+	 				;document.getElementById('fade').style.display='none'">
+	 				<span class="close-btn" >X
+					</span>
+	 			</a>
+	 			<div id="search-div">
+	 				<form id="search-form">
+	 					<input type="text" placeholder="Search for Pad" id="search-pad-name">	 			
+	 				</form>
+	 			</div>
+	 			<div class="result-div">
+			 		<table class="resulttable">
+						<thead id="tableLightboxHead">
+							<tr>
+								<th  data-label="name">Pad Name</th>
+								<th  data-label="description">Track</th>
+							</tr>
+						</thead>
+						<tbody class="template">
+							<tr>
+								<td class="name" data-label="padname"></td>
+								<td class="checked" data-label="tracked"><input class="padCheckbox" type="checkbox"></td>
+							</tr>
+						</tbody>
+						<tbody class="results" id="resultLightbox">
+          				</tbody>
+					</table>
+	 			</div>
+	 			<div>
+	 				<input type="button" value="Save" id="saveButton"/>
+	 				<input type="button" value="cancel" id="cancelButton"/>
+	 			</div>
+			</div>	
+			<div id="fade" class="black_overlay"></div>
+			
+			<div class='tracked-results-div'>
+				<table>
+					<thead>
+						<tr>
+							<th class="header" data-label="name">Pad Name<a class="sort up"></a><a class="sort down"></a></th>
+							<th class="header" data-label="description">Revision<a class="sort up"></a><a class="sort down"></a></th>
+							<th class="header" data-label="version">Last Edited<a class="sort up"></a><a class="sort down"></a></th>
+							<th class="header" data-label="version">Untrack</th>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody class="template">
+						<tr>
+							<td class="name" data-label="padname"></td>
+							<td class="revision" data-label="Revision"></td>
+							<td class="lastEdited" data-label="lastedited"></td>
+							<td class="percentage" data-label="Date"><input class="untrackButton" type="button" value="Untrack"></td>
+						</tr>
+					</tbody>
+					<tbody class='tracked-results'>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
